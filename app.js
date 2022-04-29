@@ -2,8 +2,9 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const pool = require('./data/db');
 var cors = require('cors');
-
+const bodyparser = require('body-parser');
 var app = express();
+app.use(bodyparser.json());
 app.use(express.json());
 app.use(cors());
 
@@ -18,12 +19,12 @@ app.listen('3000', function(){
 });
 
 
-app.get('/auth', async (req,res) =>{
-	const user = req.body.user;
+app.post('/api/auth/',  (req,res) =>{
+	const user = req.body.userio;
 	const pass = req.body.pass;
     
 	if (user && pass) {
-		connection.query('SELECT * FROM users WHERE usuario = ?', [user], async (error, results, fields)=> {
+		connection.query('SELECT * FROM users WHERE usuario = ?', [userio], (error, results, fields)=> {
 			if( results.length == 0 || pass.length == 0)  {    
                 res.send('Incorrect');
 			
