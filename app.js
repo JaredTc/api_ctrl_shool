@@ -55,7 +55,11 @@ app.get('/usuarios/', (req, res) =>{
 //Registrar Usuarios
 // app.POST('/register', (req,res) =>{
 //     let data ={
+//         nombre: nombre.body.nombre,
+//         paterno: paterno.body.paterno,
+//         materno: materno.body.materno,
+
 
 //     }
-//     let sql = 'INSERT INTO alumnos SET ?';
+   
 // });

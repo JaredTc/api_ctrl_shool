@@ -3,7 +3,7 @@ const cn = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'inventary'
+    database: 'usersex'
     
 }
 
