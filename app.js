@@ -11,7 +11,6 @@ app.use(cors());
 
 app.get('/', function(req, res){
     res.send('hola');
-
 });
 
 app.listen('3000', function(){
@@ -26,9 +25,8 @@ app.post('/api/auth/',  (req,res) => {
     
 	if (user && pass) {
 		pConnection.query('SELECT * FROM users WHERE nombre = ? AND password = ?', [user, pass], (error, results, fields) => {
-			if( results.length == 0 || pass.length == 0)  {    
-                res.send('Incorrect');
-			
+			if ( results.length == 0 || pass.length == 0) {
+				res.send('Incorrect');
 			} else {         
 				console.log('Usuario ingreso satisfactoriamente');
 				console.log(`User: ${user} \nPassword: ${pass}`);
@@ -40,20 +38,19 @@ app.post('/api/auth/',  (req,res) => {
 		res.send('Please enter user and Password!');
 		res.end();
 	}
-} );
+});
 
 
 //MOSTRAR USERS PRUEBA
 app.get('/usuarios/', (req, res) =>{
     pConnection.query('SELECT * FROM users ', (error, filas) => {
-        if(error){
-            throw error;
-
-        } else{
-            res.send(filas);
+        if(error) {
+			throw error;
+        } else {
+			res.send(filas);
         }
     });
-} );
+});
 
 //Registrar Usuarios
 // app.POST('/register', (req,res) =>{
