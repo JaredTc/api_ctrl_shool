@@ -1,6 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const pool = require('./data/db');
+const pConnection = require('./data/db');
 var cors = require('cors');
 const bodyparser = require('body-parser');
 var app = express();
@@ -19,21 +19,24 @@ app.listen('3000', function(){
 });
 
 
-app.post('/api/auth/',  (req,res) =>{
-	const user = req.body.userio;
-	const pass = req.body.pass;
+app.post('/api/auth/',  (req,res) => {
+	const data = req.body;
+	var user = data.usuario;
+	var pass = data.pass;
     
 	if (user && pass) {
-		connection.query('SELECT * FROM users WHERE usuario = ?', [userio], (error, results, fields)=> {
+		pConnection.query('SELECT * FROM users WHERE nombre = ? AND password = ?', [user, pass], (error, results, fields) => {
 			if( results.length == 0 || pass.length == 0)  {    
                 res.send('Incorrect');
 			
 			} else {         
-				res.send('correct');  			
-			}			
+				console.log('Usuario ingreso satisfactoriamente');
+				console.log(`User: ${user} \nPassword: ${pass}`);
+				res.send('correct');
+			}
 			res.end();
 		});
-	} else {	
+	} else {
 		res.send('Please enter user and Password!');
 		res.end();
 	}
@@ -42,7 +45,7 @@ app.post('/api/auth/',  (req,res) =>{
 
 //MOSTRAR USERS PRUEBA
 app.get('/usuarios/', (req, res) =>{
-    pool.query('SELECT * FROM users ', (error, filas) => {
+    pConnection.query('SELECT * FROM users ', (error, filas) => {
         if(error){
             throw error;
 
